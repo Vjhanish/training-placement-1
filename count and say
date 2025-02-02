@@ -1,0 +1,66 @@
+char* countAndSayhelper(char* c,int n){
+    int total_char = 0;
+    char* const_c = c;
+
+    for(c; *c != '\0';c++){
+        char* c_holder = c;
+        int counter = 1;
+        while(*(c+1) == *c){
+            counter++;
+            c++;
+        }
+        //printf("number: %c, %d times.\n",*c_holder,counter);
+        int counter_place = 0;
+        while (counter >= 1){
+            counter /= 10;
+            counter_place++;
+        }
+        total_char += counter_place + 1;
+    }
+
+    char* return_char =(char*)malloc((total_char + 1) * sizeof(char));
+    return_char[total_char] = '\0';
+    int return_index = 0;
+
+    c = const_c;
+
+    for(c; *c != '\0';c++){
+        char* c_holder = c;
+        int counter = 1;
+        while(*(c+1) == *c){
+            counter++;
+            c++;
+        }
+        int counter_place = 0;
+        int counter_holder = counter;
+        while (counter_holder >= 1){
+            counter_holder /= 10;
+            counter_place++;
+        }
+    
+        counter_holder = counter;
+        int counter_place_holder = counter_place;
+        while (counter_place >= 1){
+            int current_digit = counter_holder % 10;
+            return_char[return_index] = (char)(current_digit + 48);
+            counter_holder /= 10;
+            counter_place--;
+            return_index++;
+        }
+        return_char[return_index] = *c_holder;
+        return_index++;
+    }
+    if (n == 1) return return_char;
+    return countAndSayhelper(return_char,n-1);
+}
+
+char* countAndSay(int n) {
+    char* base = (char*)malloc(2 * sizeof(char));
+    base[0] = '1';
+    base[1] = '\0';
+
+    if (n == 1) return base;
+    n--;
+
+    return countAndSayhelper(base,n);
+}
