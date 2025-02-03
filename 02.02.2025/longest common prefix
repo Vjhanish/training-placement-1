@@ -1,0 +1,11 @@
+char* longestCommonPrefix(char** strs, int strsSize) {
+    if (strsSize == 0) return "";
+    qsort(strs, strsSize, sizeof(char*), (int(*)(const void*, const void*))strcmp);
+    char* first = strs[0], *last = strs[strsSize - 1];
+    int i = 0;
+    while (first[i] && last[i] && first[i] == last[i]) i++;
+    char* result = (char*)malloc(i + 1);
+    strncpy(result, first, i);
+    result[i] = '\0';
+    return result;
+}
