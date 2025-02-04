@@ -1,0 +1,8 @@
+bool canJump(int* nums, int numsSize){
+    int curFar=0;
+    for(int i=0; i<=curFar; i++){
+        curFar = fmax(curFar, i+nums[i]);
+        if(curFar >= numsSize-1) return true;
+    }
+    return false;
+}
